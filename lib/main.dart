@@ -112,8 +112,23 @@ class ChatView extends StatelessWidget {
                     reverse: true,
                     itemCount: snapshot.data!.size,
                     itemBuilder: (BuildContext context, int idx) {
+                      //converting a Firestore document into a Message object,
+                      // which is a custom data model in a Flutter application.
                       final message = Message.fromFirestore(snapshot.data!
                           .docs[idx] as DocumentSnapshot<Map<String, dynamic>>);
+                      //snapshot.data!.docs[idx]: This part accesses the data
+                      //from the current snapshot of the Firestore query. snapshot.data!
+                      //forcefully unwraps the snapshot's data (assuming it's not null), .docs
+                      //accesses the list of document snapshots returned by the query, and [idx]
+                      //accesses the specific document at index idx in the list.
+
+                      //as DocumentSnapshot<Map<String, dynamic>>: This is a type cast that
+                      //tells Dart you are treating the selected document as a DocumentSnapshot
+                      //containing a Map<String, dynamic>. A DocumentSnapshot is a Firestore class
+                      //representing the data of a single document, and Map<String, dynamic> is a
+                      //map (key-value pairs) with string keys and values of any type. This cast is
+                      //necessary to ensure that the data can be passed to the fromFirestore constructor correctly.
+
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ChatBubble(text: message.message),
